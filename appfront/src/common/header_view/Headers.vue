@@ -1,9 +1,9 @@
 <template>
 <div>
   <div class="base-header">
-    <i v-if="hasBack" class="el-icon-arrow-left" style="float: left;margin-top: 5px"></i>
+    <i v-if="hasBack" class="el-icon-arrow-left" @click="goback" style="float: left;margin-top: 5px"></i>
     <span>{{title}}</span>
-    <span v-if="hasright">{{rightTitle}}</span>
+    <span v-if="hasright" @click="messagecenter">{{rightTitle}}</span>
   </div>
 </div>
 </template>
@@ -24,7 +24,16 @@
         rightTitle:{
             default:''
         },
-      }
+      },
+      methods:{
+        messagecenter(){
+          this.$emit("messCenter")
+        },
+        goback(){
+          // this.$emit('goBack')
+          this.$router.goBack()
+        }
+      },
     }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
     <div style="height: 200px;width: 100%">
-      <baseheader title="我的" :hasright="hasright" rightTitle="消息"></baseheader>
+      <baseheader title="我的" :hasright="hasright" rightTitle="消息" @messCenter="messView()"></baseheader>
         <div class="items-mine" v-for="(item,i) in mineinfo" :key="i">
           <div class="items-inner">
             <img :src="item.logo" style="width: 24px;height: 24px;"/>
@@ -8,7 +8,6 @@
             <img class="mine-left-arr" src="../../assets/mineImg/arrow.png" style="width: 16px;height: auto;"/>
           </div>
         </div>
-
       </div>
 </template>
 
@@ -29,7 +28,14 @@ import baseheader from '@/common/header_view/Headers'
           hasright:true,
         }
       },
-        components:{baseheader}
+        components:{baseheader},
+      methods:{
+        messView(){
+          this.$router.push({
+            path:'/versionloginout',
+          })
+        }
+      },
     }
 </script>
 
