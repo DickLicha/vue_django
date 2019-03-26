@@ -70,15 +70,4 @@ def show_books(request):
 def test_get(request):
     response = {}
     response['result'] = 'ok'
-    # try:
-    #     books = Book.objects.filter()
-    #     response['list']  = json.loads(serializers.serialize("json", books))
-    #     response['msg'] = 'success'
-    #     response['error_num'] = 0
-    # except  Exception as e:
-    #     response['msg'] = str(e)
-    #     response['error_num'] = 1
-
-    # return JsonResponse(response)
-    # return json.dumps(response)
     return HttpResponse(json.dumps(response),content_type="application/json")

@@ -23,12 +23,15 @@
       data() {
         return {
           active: this.tabIndex,
-          tabBarname:['首页','行情','资产','我的'],
           tabInfo:[
+            // {name:'首页',imgsrc:img1,imgselectsrc:img1s,path:'/'},
+            // {name:'美食',imgsrc:img2,imgselectsrc:img2s,path:'/qoutes'},
+            // {name:'餐厅',imgsrc:img3,imgselectsrc:img3s,path:'/assets'},
+            // {name:'我的',imgsrc:img4,imgselectsrc:img4s,path:'/mine'},
             {name:'首页',imgsrc:img1,imgselectsrc:img1s,path:'/'},
-            {name:'行情',imgsrc:img2,imgselectsrc:img2s,path:'/qoutes'},
-            {name:'资产',imgsrc:img3,imgselectsrc:img3s,path:'/assets'},
-            {name:'我的',imgsrc:img4,imgselectsrc:img4s,path:'/mine'},
+            {name:'test1',imgsrc:img2,imgselectsrc:img2s,path:'/qoutes'},
+            {name:'test2',imgsrc:img3,imgselectsrc:img3s,path:'/assets'},
+            {name:'test3',imgsrc:img4,imgselectsrc:img4s,path:'/mine'},
           ],
           tableindex:0,
         }
@@ -46,7 +49,7 @@
 
 <style scoped lang="less" rel="stylesheet/less">
   .tabbar-class{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     background-color: #f5f5f5;

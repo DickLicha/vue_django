@@ -1,6 +1,6 @@
 <template>
     <div>
-      <baseheader title="资产"></baseheader>
+      <baseheader title="餐厅"></baseheader>
     </div>
 </template>
 

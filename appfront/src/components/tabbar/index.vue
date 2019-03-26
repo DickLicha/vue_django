@@ -1,56 +1,43 @@
 <template>
   <!-- 登录组件 -->
-  <div class="account-container">
-    <baseheader :hasBack='hasback' title="首页"></baseheader>
-    <form class="account-container-form" v-on:submit.prevent="login">
-      <p>
-        <span class="phone-ico"></span>
-        <input type="text" placeholder="请输入手机号" maxlength="11" class="phone" v-model="username" />
-      </p>
-      <p>
-        <span class="pwd-ico"></span>
-        <input type="password" placeholder="请输入密码" class="pwd" v-model="password" />
-      </p>
-      <p>
-        <input type="submit" value="登	录" class="account-btn" />
-      </p>
-      <div>
-        <el-row>
-          <el-button>默认按钮</el-button>
-          <el-button type="primary">主要按钮</el-button>
-          <el-button type="success">成功按钮</el-button>
-          <el-button type="info">信息按钮</el-button>
-          <el-button type="warning">警告按钮</el-button>
-          <el-button type="danger">危险按钮</el-button>
-        </el-row>
-
-        <el-row>
-          <el-input
-            placeholder="请输入内容"
-            prefix-icon="el-icon-service"
-            v-model="input21">
-          </el-input>
-        </el-row>
-
-        <span @click="go(0)">注册用户</span>
-        <span @click="go(1)">忘记密码？</span>
+  <div class="container" id="scrollTop">
+    <div class="banner-header" :class="{active:isActive}">
+      <div class="search-div">
+        <searchInput :placeholders="placehold" class="direction-place" @seach="seach" style="width: 60px"></searchInput>
+        <i class="el-icon-arrow-down down-arrow" ></i>
       </div>
-    </form>
+      <div class="search-div">
+        <i class="iconfont iconsousuo search-icon" ></i>
+        <searchInput :placeholders="placeholders" class="serach-input"></searchInput>
+      </div>
+    </div>
+    <el-carousel indicator-position="none" height="110px" interval="10000">
+      <el-carousel-item v-for="item in bannerdata" :key="item">
+        <img :src="item.logo" style="width: 100%;height: 120px" alt="">
+      </el-carousel-item>
+    </el-carousel>
   </div>
 </template>
 
 <script>
-  import baseheader from '@/common/header_view/Headers'
+  // import baseheader from '@/common/header_view/Headers'
+  import searchInput from '@/common/search_input/Searchinput'
 export default {
   name: 'index',
-  components:{baseheader},
+  components:{searchInput},
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      username:'',
-      password:'',
+      placehold:'福州',
+      placeholders:'找美食',
       input21:'',
-      hasback:false,
+      box:'',
+      isActive:false,
+      bannerdata:[
+        {logo:require('../../assets/bannerImg/img1.jpg'),name:1111},
+        {logo:require('../../assets/bannerImg/img2.jpg'),name:2222},
+        {logo:require('../../assets/bannerImg/img5.jpg'),name:3},
+      ]
     }
   },
   methods: {
@@ -76,199 +63,80 @@ export default {
           path: '/resign',
         })
       }else{
-
       }
     },
+    handleScroll: function () {
+      var t =document.documentElement.scrollTop||document.body.scrollTop;
+      // 设备/屏幕高度
+      // let scrollObj = document.getElementById('scrollTop'); // 滚动区域
+      // let scrollTop = scrollObj.scrollTop; // div 到头部的距离
+      // let scrollHeight = scrollObj.scrollHeight; // 滚动条的总高度
+      console.log(t)
+      if(t>60){
+        console.log(7777)
+        this.isActive=true
+      }else{
+        this.isActive=false
+      }
+      //滚动条到底部的条件
+    },
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll, true);
+  },
+  destroyed(){
+    window.removeEventListener('scroll', this.handleScroll);
   }
 }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-  /*
-   * Description: 登录、注册页、找回密码等表单页面样式
-   * User: zhaoyiming
-   * Date: 2017/9/4
-  */
-
-  .account-container {
-    width: 84%;
-    padding: 20px 8% 0 8%;
-  }
-
-  .account-container-form p {
+  .container{
     position: relative;
-    margin-bottom: 15px;
-  }
-
-  .phone,
-  .code,
-  .pwd,
-  .account {
-    height: 45px;
-    border-radius: 3px;
-    font-size: 14px;
-    color: #4d4d4d;
-  }
-
-  .phone-ico,
-  .code-ico,
-  .phone-ico,
-  .pwd-ico {
-    display: block;
-    position: absolute;
-    height: 100%;
-    background-size: 30px 30px;
-  }
-
-  .phone-ico {
-    /*background-image: url("./images/phone.png");*/
-    background-repeat: no-repeat;
-    background-position: 0 7px;
-  }
-
-  .code-ico {
-    background-image: url("../../static/images/verify.png");
-    background-repeat: no-repeat;
-    background-position: 0 7px;
-  }
-
-  .phone-ico {
-    background-image: url("../../static/images/account.png");
-    background-repeat: no-repeat;
-    background-position: 0 7px;
-  }
-
-  .pwd-ico {
-    background-image: url("../../static/images/password.png");
-    background-repeat: no-repeat;
-    background-position: 0 7px;
-  }
-
-  .account-btn {
-    display: block;
     width: 100%;
-    height: 45px;
-    margin: 0 0 20px 0;
-    text-align: center;
-    line-height: 45px;
-    border-radius: 25px;
-    background-color: #2577e3;
-    color: #fff;
-    font-size: 15px;
+    height: 800px;
+    overflow-y: auto;
+    background-color: grey;
   }
-
-  .unable {
-    display: block;
-    text-align: right;
-    color: #2577e3;
-    font-size: 12px;
+  .direction-place /deep/ .search-input{
+    width:60px;
+    padding-left: 4px;
+    background-color: rgba(240,240,240,.6);
+    border: none;
+    /*color: white;*/
   }
-
-  .phone-prompt {
-    display: block;
-    text-align: right;
-    color: #afafaf;
-    font-size: 12px;
+  .serach-input{
+    margin-left: 30px;
   }
-
-  @media only screen and (max-width: 319px) {
-    .phone-ico,
-    .code-ico,
-    .pwd-ico,
-    .phone-ico {
-      width: 11%;
-    }
-
-    .phone,
-    .code,
-    .pwd,
-    .account {
-      width: 89%;
-      padding-left: 11%;
-    }
+  .serach-input /deep/.search-input{
+    width:235px
   }
-
-  @media only screen and (min-width: 320px) and (max-width: 374px) {
-    .phone-ico,
-    .code-ico,
-    .pwd-ico,
-    .phone-ico {
-      width: 11%;
-    }
-
-    .phone,
-    .code,
-    .pwd,
-    .account {
-      width: 89%;
-      padding-left: 11%;
-    }
+.banner-header{
+  display: flex;
+  position: fixed;
+  /*top:10px;*/
+  /*left:10px;*/
+  height: 60px;
+  /*background-color: aqua;*/
+  /*right:10px;*/
+  z-index: 3000;
+  width: 100%;
+}
+.search-div{
+    position: relative;
+    top:10px;
+    left:5px
   }
-
-  @media only screen and (min-width: 375px) and (max-width: 413px) {
-    .phone-ico,
-    .code-ico,
-    .pwd-ico,
-    .phone-ico {
-      width: 10%;
-    }
-
-    .phone,
-    .code,
-    .pwd,
-    .account {
-      width: 90%;
-      padding-left: 10%;
-    }
+  .search-icon{
+    position: absolute;
+    left:35px;
+    top:4px
   }
-
-  @media only screen and (min-width: 414px) and (max-width: 480px) {
-    .phone-ico,
-    .code-ico,
-    .pwd-ico,
-    .phone-ico {
-      width: 9%;
-    }
-
-    .phone,
-    .code,
-    .pwd,
-    .account {
-      width: 91%;
-      padding-left: 9%;
-    }
+  .down-arrow{
+    position: absolute;
+    left:40px;
+    top:8px
   }
-
-  @media only screen and (min-width: 480px) and (max-width: 767px) {
-    .phone-ico,
-    .code-ico,
-    .pwd-ico,
-    .phone-ico {
-      width: 7%;
-    }
-
-    .phone,
-    .code,
-    .pwd,
-    .account {
-      width: 93%;
-      padding-left: 7%;
-    }
-  }
-
-  @media only screen and (min-width: 768px) {
-    .phone-ico,
-    .code-ico,
-    .pwd-ico,
-    .phone-ico {
-      width: 6%;
-    }
-
-    .phone,
-    .code,
-    .pwd,
-    .account {
-      width: 94%;
-      padding-left: 6%;
-    }
+  .active{
+    background-color: #f7483e ;
   }
 </style>

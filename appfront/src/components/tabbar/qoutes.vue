@@ -1,6 +1,6 @@
 <template>
     <div>
-      <baseheader title="行情"></baseheader>
+      <baseheader title="美食"></baseheader>
     </div>
 </template>
 
